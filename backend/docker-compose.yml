@@ -1,0 +1,10 @@
+services:
+  orriginalo-site-api:
+    build: .
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    networks:
+      - reverse_proxy

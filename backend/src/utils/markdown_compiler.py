@@ -2,8 +2,8 @@ import os
 from fastapi.exceptions import HTTPException
 import re
 
-LABS_PATH = "data/Labs"
-READMES_PATH = "data/Readmes"
+LABS_PATH = "/data/Labs"
+READMES_PATH = "/data/Readmes"
 
 def load_markdown_with_code(lab_num: int):
   
