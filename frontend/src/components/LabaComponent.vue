@@ -62,6 +62,9 @@ export default {
         const button = document.createElement('button')
         button.className = 'copy-button'
         button.textContent = 'Скопировать код'
+        button.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></g></svg>
+        `
 
         // Получаем чистый код (без HTML тегов)
         const code = pre.querySelector('code').textContent
@@ -94,6 +97,9 @@ export default {
           button.textContent = 'Ошибка!'
           button.style.backgroundColor = '#EF4444'
           setTimeout(() => {
+            button.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></g></svg>
+            `
             button.textContent = 'Скопировать код'
             button.style.backgroundColor = '#3B82F6'
           }, 2000)
@@ -101,11 +107,15 @@ export default {
     },
     showCopyFeedback(button) {
       const originalText = button.textContent
-      button.textContent = 'Скопировано!'
       button.style.backgroundColor = '#10B981'
+      button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 15.15l8.475-8.475q.3-.3.7-.3t.7.3t.3.713t-.3.712l-9.175 9.2q-.3.3-.7.3t-.7-.3L4.55 13q-.3-.3-.288-.712t.313-.713t.713-.3t.712.3z"/></svg>
+      `
 
       setTimeout(() => {
         button.textContent = originalText
+        button.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></g></svg>
+        `
         button.style.backgroundColor = '#3B82F6'
       }, 2000)
     },
@@ -115,7 +125,7 @@ export default {
 
 <template>
   <main class="flex h-full justify-center w-full items-center p-2">
-    <div class="w-full lg:w-3/4 max-w-[95%] h-full bg-zinc-800 p-4 sm:p-6 rounded-2xl text-white transition-all">
+    <div class="w-full md:w-3/4 h-full bg-zinc-800 p-4 sm:p-6 rounded-2xl text-white transition-all">
       <article
         v-html="formattedMarkdown"
         class="prose prose-invert lg:prose-lg max-w-none text-base sm:text-lg"
@@ -127,7 +137,7 @@ export default {
 <style>
 .prose pre {
   background-color: #1e1e1e;
-  padding: 1rem;
+  padding: 0.1rem;
   border-radius: 8px;
   overflow: auto;
   color: white;
@@ -153,7 +163,7 @@ export default {
   background-color: #3b82f6;
   color: white;
   padding: 5px 10px;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 0.875rem;
   transition: all 0.3s;
@@ -167,17 +177,17 @@ export default {
 }
 
 .prose p {
-  font-size: 1rem; /* Базовый размер для мобилок */
+  font-size: 1rem;
 }
 
 @media (min-width: 640px) {
   .prose p {
-    font-size: 1.2rem; /* Увеличиваем на больших экранах */
+    font-size: 1.2rem;
   }
 }
 
 .prose h1 {
-  font-size: 2rem; /* Уменьшил для мобилок */
+  font-size: 1.6rem;
   font-weight: bold;
   margin-bottom: 1rem;
 }
@@ -189,7 +199,7 @@ export default {
 }
 
 .prose h2 {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: bold;
   margin-bottom: 0.75rem;
 }
@@ -201,7 +211,7 @@ export default {
 }
 
 .prose h3 {
-  font-size: 1.4rem;
+  font-size: 1.15rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
@@ -212,5 +222,6 @@ export default {
     font-size: 1.7rem;
   }
 }
+
 </style>
 
