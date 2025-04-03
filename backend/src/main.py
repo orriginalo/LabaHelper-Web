@@ -13,11 +13,12 @@ origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://labahelper.orriginalo.ru",
+    "https://labahelper.orriginalo.ru",
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Разрешаем только нужные домены
+    allow_origins=["*"],  # Разрешаем только нужные домены
     allow_credentials=True,
     allow_methods=["*"],  # Разрешаем все HTTP-методы
     allow_headers=["*"],  # Разрешаем все заголовки
@@ -31,13 +32,13 @@ def load_labs_data() -> dict:
 # def root():
     # return {"hello" : "world"}
 
-@app.get("api/labs")
+@app.get("/api/labs")
 def get_all_labs():
     try:
         labs_data = load_labs_data()  # Загружаем labs_data
         
         labs = {"labs": []}
-        labs_dirs = os.listdir("data\\Labs")
+        labs_dirs = os.listdir("/data/Labs")
         labs_dirs.sort(key=lambda folder: int(folder[4:]))
         
         for file in labs_dirs:
@@ -58,7 +59,7 @@ def get_all_labs():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.get("api/lab/{lab_num}")
+@app.get("/api/lab/{lab_num}")
 def get_lab(lab_num: str):
     try:
         return {"markdown": load_markdown_with_code(lab_num)}
