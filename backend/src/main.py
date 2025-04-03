@@ -12,6 +12,7 @@ app = FastAPI()
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "http://labahelper.orriginalo.ru",
 ]
 
 app.add_middleware(
@@ -26,11 +27,11 @@ def load_labs_data() -> dict:
     with open("data/data.json", encoding="utf-8") as file:
         return json.load(file)
 
-@app.get("/")
-def root():
-    return {"hello" : "world"}
+# @app.get("/")
+# def root():
+    # return {"hello" : "world"}
 
-@app.get("/labs")
+@app.get("api/labs")
 def get_all_labs():
     try:
         labs_data = load_labs_data()  # Загружаем labs_data
@@ -57,7 +58,7 @@ def get_all_labs():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.get("/lab/{lab_num}")
+@app.get("api/lab/{lab_num}")
 def get_lab(lab_num: str):
     try:
         return {"markdown": load_markdown_with_code(lab_num)}
