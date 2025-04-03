@@ -35,7 +35,7 @@ export default {
   },
   async mounted() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/labs') // Получаем данные
+      const response = await axios.get('https://api.orriginalo/api/labs') // Получаем данные
       console.log('Респонсе: ', response.data)
 
       this.sections = response.data['labs']
