@@ -14,9 +14,14 @@ export default {
     return {
       sections: [],
       activeSection: null, // Секция по умолчанию
+      sidebarOpen: true,
     }
   },
   methods: {
+    toggleSidebar () {
+      this.sidebarOpen = !this.sidebarOpen;
+      console.log(this.sidebarOpen);
+    },
     async nullActiveSection() {
       this.activeSection = null
     },
@@ -52,9 +57,23 @@ export default {
 
 <template>
   <main class="flex bg-zinc-700 h-full">
-    <!-- Левая панель с кнопками -->
-    <div class="bg-zinc-800 w-80 flex flex-col items-start p-4 space-y-2 h-screen sticky top-0">
-      <div>
+    <!-- Кнопка открытия сайдбара -->
+    <button
+      @click="toggleSidebar"
+      class="text-xl fixed top-2 left-3 z-50 px-1 pb-0.5 text-white cursor-pointer"
+    >
+      ☰
+    </button>
+
+    <!-- Левая панель -->
+    <div
+      class="sticky bg-zinc-800 flex flex-col items-start p-4 space-y-2 h-screen transition-all duration-300 ease-in-out md:w-80"
+      :class="{
+        'left-0 top-0 w-80 z-40': sidebarOpen,
+        'hidden': !sidebarOpen,
+      }"
+    >
+      <div class="mt-5">
         <span class="text-xl text-neutral-500">orriginalo/</span><br />
         <span
           class="text-2xl font-black text-white hover:cursor-pointer"
@@ -64,7 +83,7 @@ export default {
           Web
         </span>
       </div>
-      <div class="space-y-2 overflow-y-auto">
+      <div class="space-y-2 overflow-y-auto rounded-xl py-2">
         <button
           v-for="section in sections"
           :key="section.id"
@@ -80,7 +99,8 @@ export default {
         </button>
       </div>
     </div>
-    <!-- Контент активной секции -->
+
+    <!-- Контент -->
     <div class="flex-1 overflow-y-auto h-full">
       <div class="bg-zinc-900 w-full h-full flex flex-col items-center p-4">
         <LabaComponent v-if="activeSection != null" :markdown="activeSection.markdown" />
@@ -89,3 +109,21 @@ export default {
     </div>
   </main>
 </template>
+
+
+<style scoped>
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 40;
+    background-color: #27272a;
+    transition: transform 0.3s ease-in-out;
+  }
+  .sidebar-hidden {
+    transform: translateX(-100%);
+  }
+}
+</style>

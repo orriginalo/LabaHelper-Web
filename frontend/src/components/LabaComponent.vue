@@ -114,11 +114,11 @@ export default {
 </script>
 
 <template>
-  <main class="flex h-full justify-center w-full items-center">
-    <div class="w-3/4 h-full bg-zinc-800 p-6 rounded-2xl text-white">
+  <main class="flex h-full justify-center w-full items-center p-2">
+    <div class="w-full lg:w-3/4 max-w-[95%] h-full bg-zinc-800 p-4 sm:p-6 rounded-2xl text-white transition-all">
       <article
         v-html="formattedMarkdown"
-        class="prose prose-invert lg:prose-lg max-w-none"
+        class="prose prose-invert lg:prose-lg max-w-none text-base sm:text-lg"
       ></article>
     </div>
   </main>
@@ -167,25 +167,50 @@ export default {
 }
 
 .prose p {
-  font-size: 1.2rem;
+  font-size: 1rem; /* Базовый размер для мобилок */
+}
+
+@media (min-width: 640px) {
+  .prose p {
+    font-size: 1.2rem; /* Увеличиваем на больших экранах */
+  }
 }
 
 .prose h1 {
-  font-size: 2.5rem;
+  font-size: 2rem; /* Уменьшил для мобилок */
   font-weight: bold;
   margin-bottom: 1rem;
 }
 
+@media (min-width: 640px) {
+  .prose h1 {
+    font-size: 2.5rem;
+  }
+}
+
 .prose h2 {
-  font-size: 1.95rem;
+  font-size: 1.6rem;
   font-weight: bold;
   margin-bottom: 0.75rem;
 }
 
+@media (min-width: 640px) {
+  .prose h2 {
+    font-size: 1.95rem;
+  }
+}
+
 .prose h3 {
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
 }
+
+@media (min-width: 640px) {
+  .prose h3 {
+    font-size: 1.7rem;
+  }
+}
 </style>
+
